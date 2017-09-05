@@ -1,0 +1,13 @@
+/* css for signin*/
+          #facebook,#sign1, #google, #email,#password{height:45px;color:white;width:80%}
+		  #facebbok{background-color:blue}
+		  #google{background-color:black}
+		  #sign1{background-color:rgba(79, 222, 222, 0.72)}
+		  .right{border-left:1px solid}
+		  /* css for registration page*/	  
+  /* .body{background-color:rgba(79, 222, 222, 0.72)}
+  .container{background-color:white;}
+  #pid{border-style:dashed;margin:0;padding:10px;border-radius:5px;border-color:grey}
+  .pid2{text-align:center}
+  #signin{background-color:#43af43;color:white;margin:10px} */
+  
