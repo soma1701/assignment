@@ -16,7 +16,7 @@ public class BookDetailsDAO {
         Connection con=null;  
         try{  
             Class.forName("com.mysql.jdbc.Driver");  
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/soma","root","r");  
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/soma","root","root");  
         }catch(Exception e){System.out.println(e);}  
         return con;  
     }  
@@ -85,11 +85,10 @@ public class BookDetailsDAO {
 		
 		
 	}
-	 public static int updateBookDetails(BookDetails objBookobjBookDetails){  
+	 public int updateBookDetails(BookDetails objBookDetails){  
 	        int status=0; 
 	        Connection con=null;
 	        PreparedStatement ps=null;
-	        BookDetails objBookDetails=new BookDetails();
 	        try{  
 	             con=BookDetailsDAO.getConnection();  
 	             ps=con.prepareStatement(AuthQueryUtil.UPDATE_BOOK_DETAILS); 

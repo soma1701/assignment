@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="script/welcome.js"> </script>
 </head>
 <body>
 <p>welcome to log in page of book library ${userName} </p>
@@ -144,7 +145,7 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
             <div class="form-group">
               <label for="bookPrice">Enter BookPrice:</label>
               <input type="text" class="form-control" id="bookPrice" name="bookPrice" placeholder="bookPrice">
-            </div>
+            </div></div>
   			<button type="submit" class="btn btn-default">Submit</button>
 			</form> 
         </div>
@@ -153,7 +154,7 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
    </div>
 </div>
 </body>
-<script>
+<!-- <script>
 var currentcatagory="";
 function loadDoc(catagory) {
 	currentcatagory=catagory;
@@ -191,5 +192,5 @@ function deleteBook(bookId,catagory){
 }
 
 
-</script>
+</script> -->
 </html>

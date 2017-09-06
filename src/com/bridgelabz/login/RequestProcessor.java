@@ -14,6 +14,8 @@ import javax.xml.ws.Dispatch;
 import javax.xml.ws.Response;
 
 import org.omg.PortableInterceptor.DISCARDING;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.bridgelabz.fetch_records.BookDetailsDAO;
 import com.bridgelabz.modal.BookDetails;
@@ -113,6 +115,7 @@ public class RequestProcessor {
 	public void fetchBookDetails(HttpServletRequest req, HttpServletResponse resp) {
 		int bookId = Integer.parseInt(req.getParameter("bookId"));
 		String isEditFlow = req.getParameter("isEditFlow");
+		
 		BookDetailsDAO objBookDetailsDAO = new BookDetailsDAO();
 		BookDetails objBookDetails = objBookDetailsDAO.fetchBookDetails(bookId);
 		req.setAttribute("isEditFlow", isEditFlow);
@@ -138,8 +141,20 @@ public class RequestProcessor {
 	}
 
 	public void editBookDetails(HttpServletRequest req, HttpServletResponse resp) {
-		int bookId =Integer.parseInt(req.getParameter("bookId"));
+		BookDetails objBookDetails = new BookDetails();
+		objBookDetails.setBookId(Integer.parseInt(req.getParameter("bookId")));
+		objBookDetails.setBookCatagory(req.getParameter("bookCatagory"));
+		objBookDetails.setBookAuthor(req.getParameter("bookAuthor"));
+		objBookDetails.setBookTitle(req.getParameter("bookTitle"));
 		BookDetailsDAO objBookDetailsDAO = new BookDetailsDAO();
+		objBookDetailsDAO.updateBookDetails(objBookDetails);
+		try {
+			resp.sendRedirect("book-details.jsp");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 		
