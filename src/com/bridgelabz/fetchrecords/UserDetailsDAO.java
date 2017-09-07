@@ -15,7 +15,7 @@ public class UserDetailsDAO {
 		int status=0;
 		BookDetailsDAO objBookDetailsDAO = new BookDetailsDAO();
 		conn = objBookDetailsDAO.getConnection();
-		int counter=1;
+		int counter=0;
 		try {
 			ps=conn.prepareStatement("SET_USER_DETAILS");
 			ps.setString(counter++,objUserdetails.getUserName());

@@ -46,6 +46,7 @@ public class RequestController extends HttpServlet{
 			objRequestProcessor.editBookDetails(req,resp);
 			break;
 			default :
+				System.out.println("wrong input");
 				
 		}
 	}

@@ -33,7 +33,7 @@
 <body class="body">
 	<div class="container">
   	<h2>Create an Account</h2>
-  <form action="" name="login" method="get" onsubmit="">
+  <form action="RequestController" name="login" method="get">
 	  <div class="form-group">
 	  <label for="fullname">Enter your full name</label>
 	  <input type="text" name="userName" id="fullname" class="form-control" placeholder="Enter your full name">
@@ -71,7 +71,7 @@
 	</div>
 	<div class="form-group">
 	   <p id="pid" >By Clicking On the "Create an account button" bellow, you certify that you have read and agree to our <a href="">terms of use</a> and <a href="">privacy policy</a></p>
-	    <input type="hidden" value="REGISTER" name="ACTION-MODE">
+	    <input type="hidden" value="REGISTER" name="ACTION_MODE">
 	    <input class="form-control" type="submit" id="signin" value="Signin">
 	      <p class="pid2">Create an account?<a herf="">Sign in.</a></p>
 	</div>
