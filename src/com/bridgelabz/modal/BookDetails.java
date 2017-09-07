@@ -6,6 +6,7 @@ public class BookDetails {
 	private String bookAuthor;
 	private Double bookPrice;
 	private String bookCatagory;
+	
 	public int getBookId() {
 		return bookId;
 	}

@@ -1,4 +1,4 @@
-package com.bridgelabz.fetch_records;
+package com.bridgelabz.fetchrecords;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -89,18 +89,19 @@ public class BookDetailsDAO {
 	        int status=0; 
 	        Connection con=null;
 	        PreparedStatement ps=null;
+	        int counter=1;
 	        try{  
 	             con=BookDetailsDAO.getConnection();  
 	             ps=con.prepareStatement(AuthQueryUtil.UPDATE_BOOK_DETAILS); 
-	            ps.setInt(1,objBookDetails.getBookId() );
-	            ps.setString(2,objBookDetails.getBookTitle());
-	            ps.setString(3, objBookDetails.getBookAuthor());
-	            ps.setString(4,objBookDetails.getBookCatagory());
-	            ps.setDouble(5, objBookDetails.getBookPrice());
-	           
+	             ps.setString(counter++,objBookDetails.getBookTitle());
+	             ps.setString(counter++, objBookDetails.getBookAuthor());
+	             ps.setDouble(counter++, objBookDetails.getBookPrice());
+	            ps.setInt(counter++,objBookDetails.getBookId() );
 	            status=ps.executeUpdate();  
 	            
-	        }catch(Exception ex){ex.printStackTrace();}  
+	        }catch(Exception ex){
+	        	ex.printStackTrace();
+	        }  
 	        finally {
 	        	try {
 					ps.close();
@@ -121,7 +122,6 @@ public class BookDetailsDAO {
 		PreparedStatement ps=null;
 		Connection con=null;
 		ResultSet rs=null;
-		int status=0;
 		List<BookDetails> alBookDetails= new ArrayList<BookDetails>();
 		try {
 			 con=BookDetailsDAO.getConnection();

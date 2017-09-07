@@ -9,14 +9,28 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="script/welcome.js"> </script>
+  <script type="text/javascript" src="script/welcome.js"></script>
 </head>
 <body>
-<p>welcome to log in page of book library ${userName} </p>
-<form action="logout" method="get">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  	<div class="row">
+      	<div class="col-md-6">welcome to log in page of book library ${userName}</div>
+		 <div class="col-md-6">  
+		 	<form action="logout" method="get">
+				<input type="hidden" name="ACTION_MODE" value="LOGOUT">
+				<input class="logout" type="submit" value="logout">
+			</form>
+		</div>
+	</div>
+  </div>
+</nav>
+
+<!-- <form action="logout" method="get">
 <input type="hidden" name="ACTION_MODE" value="LOGOUT">
 <input class="logout" type="submit" value="logout">
-</form>
+</form> -->
 <% if(session.getAttribute("userName")==null){
 	response.sendRedirect("signin.jsp");
 }
@@ -154,43 +168,43 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
    </div>
 </div>
 </body>
-<!-- <script>
-var currentcatagory="";
-function loadDoc(catagory) {
-	currentcatagory=catagory;
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "fetchData?ACTION_MODE=FETCH_DATA&catagory="+catagory, true);
-  xhttp.send();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo-"+catagory).innerHTML = this.responseText;
-    }
-  };
-}
-function fetchDetails(bookId,isEditFlow){
-	var xhttp = new XMLHttpRequest();
-	  xhttp.open("GET", "fetchData?ACTION_MODE=FETCH_BOOK_DETAILS&bookId="+bookId+"&isEditFlow="+isEditFlow, true);
+  <script>
+	var currentcatagory="";
+	function loadDoc(catagory) {
+		currentcatagory=catagory;
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.open("GET", "fetchData?ACTION_MODE=FETCH_DATA&catagory="+catagory, true);
 	  xhttp.send();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
-	      document.getElementById("book-details").innerHTML = this.responseText;
+	      document.getElementById("demo-"+catagory).innerHTML = this.responseText;
 	    }
 	  };
-}
-function deleteBook(bookId,catagory){
-	var xhttp = new XMLHttpRequest();
-	  xhttp.open("GET", "deleteData?ACTION_MODE=DELETE_BOOK&bookId="+bookId, true);
-	  xhttp.send();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	    	
-	    loadDoc(currentcatagory);
-	    
-	    }
-	  };
-	
-}
+	}
+	function fetchDetails(bookId,isEditFlow){
+		var xhttp = new XMLHttpRequest();
+		  xhttp.open("GET", "fetchData?ACTION_MODE=FETCH_BOOK_DETAILS&bookId="+bookId+"&isEditFlow="+isEditFlow, true);
+		  xhttp.send();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		      document.getElementById("book-details").innerHTML = this.responseText;
+		    }
+		  };
+	}
+	function deleteBook(bookId,catagory){
+		var xhttp = new XMLHttpRequest();
+		  xhttp.open("GET", "deleteData?ACTION_MODE=DELETE_BOOK&bookId="+bookId, true);
+		  xhttp.send();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		    	
+		    loadDoc(currentcatagory);
+		    
+		    }
+		  };
+		
+	}
 
 
-</script> -->
+</script> 
 </html>

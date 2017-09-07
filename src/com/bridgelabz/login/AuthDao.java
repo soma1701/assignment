@@ -23,7 +23,7 @@ public class AuthDao {
 			ps.setString(counter++, objUserDetails.getPassword());
 			rs = ps.executeQuery();
 			while(rs.next()){
-				objUserDetails.setUsername(rs.getString("user_name"));
+				objUserDetails.setUserName(rs.getString("user_name"));
 			}
 		}catch(Exception sqlExp){
 			sqlExp.printStackTrace();

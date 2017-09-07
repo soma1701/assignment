@@ -19,6 +19,9 @@ public class RequestController extends HttpServlet{
 		String actionMode = req.getParameter("ACTION_MODE");
 		RequestProcessor objRequestProcessor = new RequestProcessor(); 
 		switch(actionMode){
+		case "REGISTER":
+			objRequestProcessor.doRegister(req,resp);
+			break;
 		case "LOGIN":
 //			com.bridgelabz.login.Authentication objLogin = new com.bridgelabz.login.Authentication();
 			objRequestProcessor.doLogin(req,resp);

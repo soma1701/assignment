@@ -56,7 +56,7 @@
 				</div>
 				<input type="hidden" value="<%=objBookDetails.getBookId()%>" name="bookId"> 
 				<input type="hidden" name="ACTION_MODE" value="EDIT_BOOK_DETAILS">
-				<input type="button" value="Save">
+				<input type="submit" value="Save">
 			</div>
 		</form>
 	<%

@@ -17,7 +17,8 @@ import org.omg.PortableInterceptor.DISCARDING;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bridgelabz.fetch_records.BookDetailsDAO;
+import com.bridgelabz.fetchrecords.BookDetailsDAO;
+import com.bridgelabz.fetchrecords.UserDetailsDAO;
 import com.bridgelabz.modal.BookDetails;
 import com.bridgelabz.modal.Userdetails;
 
@@ -32,9 +33,10 @@ public class RequestProcessor {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if(objUserDetails.getUsername()==null){
+		if(objUserDetails.getUserName()==null){
 			try {
 				resp.sendRedirect("Registration.jsp");
+				
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -45,7 +47,7 @@ public class RequestProcessor {
 					List<BookDetails> objal  =objBookDetailsDAO.fetchBookDetails(objBookDetailsDAO);
 					HttpSession session=req.getSession();
 					req.setAttribute("BookDetails", objal);
-					session.setAttribute("userName",objUserDetails.getUsername());
+					session.setAttribute("userName",objUserDetails.getUserName());
 					resp.sendRedirect("Welcomefile.jsp");
 //					RequestDispatcher dispatcher = req.getRequestDispatcher("Welcomefile.jsp");
 //					dispatcher.include(req, resp);
@@ -59,6 +61,7 @@ public class RequestProcessor {
 			
 		}
 	}
+	
 
 	public void doLogout(HttpServletRequest req, HttpServletResponse resp) {
 		HttpSession session=req.getSession();
@@ -142,18 +145,40 @@ public class RequestProcessor {
 
 	public void editBookDetails(HttpServletRequest req, HttpServletResponse resp) {
 		BookDetails objBookDetails = new BookDetails();
-		objBookDetails.setBookId(Integer.parseInt(req.getParameter("bookId")));
-		objBookDetails.setBookCatagory(req.getParameter("bookCatagory"));
-		objBookDetails.setBookAuthor(req.getParameter("bookAuthor"));
 		objBookDetails.setBookTitle(req.getParameter("bookTitle"));
+		objBookDetails.setBookAuthor(req.getParameter("bookAuthor"));
+		objBookDetails.setBookPrice(Double.parseDouble(req.getParameter("bookPrice")));
+		objBookDetails.setBookId(Integer.parseInt(req.getParameter("bookId")));
 		BookDetailsDAO objBookDetailsDAO = new BookDetailsDAO();
 		objBookDetailsDAO.updateBookDetails(objBookDetails);
 		try {
-			resp.sendRedirect("book-details.jsp");
+			resp.sendRedirect("Welcomefile.jsp");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+
+
+	public void doRegister(HttpServletRequest req, HttpServletResponse resp) {
+		Userdetails objUserdetails = new Userdetails();
+		objUserdetails.setUserName(req.getParameter("userName"));
+		objUserdetails.setEmail(req.getParameter("email"));
+		objUserdetails.setPassword(req.getParameter("password"));
+		objUserdetails.setConfirmPassword(req.getParameter("confirmPassword"));
+		objUserdetails.setGender(req.getParameter("male"));
+		objUserdetails.setMobNo(Long.parseLong(req.getParameter("mobNo")));
+		UserDetailsDAO objUserDetailsDAO = new UserDetailsDAO();
+		objUserDetailsDAO.getRegister(objUserdetails);
+		try {
+			resp.sendRedirect("signin.jsp");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 	
