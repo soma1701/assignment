@@ -1,7 +1,7 @@
-@charset "UTF-8";
-/*  css for registration page*/	  
+/*  css for registration page*/	 
+ 
 	.body{background-color:rgba(79, 222, 222, 0.72)}
   .container{background-color:white; width:500px}
   #pid{border-style:dashed;margin:0;padding:10px;border-radius:5px;border-color:grey}
   .pid2{text-align:center}
-  #signin{background-color:#43af43;color:white;margin:10px}
+  #signin{background-color:#43af43;color:white;margin:10px};

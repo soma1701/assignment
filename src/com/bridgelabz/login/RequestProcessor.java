@@ -168,11 +168,11 @@ public class RequestProcessor {
 		objUserdetails.setPassword(req.getParameter("password"));
 		objUserdetails.setConfirmPassword(req.getParameter("confirmPassword"));
 		objUserdetails.setGender(req.getParameter("male"));
-		objUserdetails.setMobNo(Long.parseLong(req.getParameter("mobNo")));
+		objUserdetails.setMobNo(Long.parseLong(req.getParameter("mobileNumber")));
 		UserDetailsDAO objUserDetailsDAO = new UserDetailsDAO();
 		objUserDetailsDAO.getRegister(objUserdetails);
 		try {
-			resp.sendRedirect("signin.jsp");
+			resp.sendRedirect("Registration.jsp");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

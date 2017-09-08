@@ -8,6 +8,6 @@ public class AuthQueryUtil {
 	public static final String GET_BOOK_TITLE="select book_title,book_id from book_library where catagories=?";
 	public static final String FETCH_BOOK_DETAILS = "select * from book_library where book_id = ?";
 	public static final String DELETE_BOOK_TITAL = "delete from book_library where book_id = ?";
-	public static final String SET_USER_DETAILS ="insert into m_login(user_name,user_email,password,mob_no,gender)"+
-			" values(?,?,?,?,?)";
+	public static final String SET_USER_DETAILS ="insert into m_login(user_name,user_email,password,mob_no,gender,confirm_password)"+
+			" values(?,?,?,?,?,?)";
 }

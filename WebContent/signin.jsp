@@ -88,7 +88,7 @@
 						</button> -->
 						<input type="submit" value="Submit" class="submit">
 						<br> <br>
-						<a href="">Forgot ur password?</a>
+						<a href="">Forgot ur password?</a><a href="Registration.jsp">register</a>
 					</div>
 				</div>
 				</div>
