@@ -2,7 +2,6 @@ package com.bridgelabz.login;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,13 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Response;
-
-import org.omg.PortableInterceptor.DISCARDING;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.bridgelabz.fetchrecords.BookDetailsDAO;
 import com.bridgelabz.fetchrecords.UserDetailsDAO;
 import com.bridgelabz.modal.BookDetails;
@@ -167,7 +159,7 @@ public class RequestProcessor {
 		objUserdetails.setEmail(req.getParameter("email"));
 		objUserdetails.setPassword(req.getParameter("password"));
 		objUserdetails.setConfirmPassword(req.getParameter("confirmPassword"));
-		objUserdetails.setGender(req.getParameter("male"));
+		objUserdetails.setGender(req.getParameter("gender"));
 		objUserdetails.setMobNo(Long.parseLong(req.getParameter("mobileNumber")));
 		UserDetailsDAO objUserDetailsDAO = new UserDetailsDAO();
 		objUserDetailsDAO.getRegister(objUserdetails);

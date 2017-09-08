@@ -33,12 +33,12 @@
 	      <div class="row">
 		      <div class="col-md-6">
 		      <div class="radio">
-			  <label><input type="radio" id="male" name="male">Male</label>
+			  <label><input type="radio" id="male" name="gender" value="male">Male</label>
 			  </div>
 		      </div>
 			  <div class="col-md-6">
 			  <div class="radio">
-			  <label><input type="radio" name="female" id="female" >Female</label>
+			  <label><input type="radio" name="gender" id="female" value="female">Female</label>
 		  	</div>
 		  	</div>
         </div>
