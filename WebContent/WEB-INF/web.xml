@@ -3,17 +3,17 @@
   <display-name>assignment</display-name>
   <welcome-file-list>
    
-    <welcome-file>Registration.jsp</welcome-file>
+     <welcome-file>Registration.jsp</welcome-file>
      <welcome-file>signin.jsp</welcome-file>
     
     
   </welcome-file-list>
   <servlet>
-  <servlet-name>Login_Authentication</servlet-name>
+  <servlet-name>Log</servlet-name>
   <servlet-class>com.bridgelabz.auth.RequestController</servlet-class>
   </servlet>
   <servlet-mapping>
-  <servlet-name>Login_Authentication</servlet-name>
+  <servlet-name>Log</servlet-name>
   <url-pattern>/</url-pattern>
   </servlet-mapping>
 </web-app>

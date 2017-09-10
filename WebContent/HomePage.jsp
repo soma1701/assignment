@@ -18,7 +18,7 @@
   	<div class="row">
       	<div class="col-md-6">welcome to log in page of book library ${userName}</div>
 		 <div class="col-md-6">  
-		 	<form action="logout" method="get">
+		 	<form action="logout" method="post">
 				<input type="hidden" name="ACTION_MODE" value="LOGOUT">
 				<input class="logout" type="submit" value="logout">
 			</form>
@@ -27,15 +27,10 @@
   </div>
 </nav>
 
-<!-- <form action="logout" method="get">
-<input type="hidden" name="ACTION_MODE" value="LOGOUT">
-<input class="logout" type="submit" value="logout">
-</form> -->
 <% if(session.getAttribute("userName")==null){
-	response.sendRedirect("signin.jsp");
-}
-List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDetails");
- %>
+	response.sendRedirect("signin.jsp");} 
+%>
+
 <div class="container ">
  <div class="modal fade" style="z-index: 10000"id="book-detail" role="dialog">
    <div class="modal-dialog">
@@ -58,21 +53,11 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Science book details</h4>
-        </div>
-        <div class="modal-body" id="demo-science">
-        
-        
-          <%-- <%for(int i=0;i<alBookDetails.size();i++){
-        	  if(alBookDetails.get(i).getBookCatagory().equals("science")){
-        		alBookDetails.get(i).getBookTitle();  
-        	  }
-        	  }
-        %> --%>
-          
-        </div>
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Science book details</h4>
+	        </div>
+	        <div class="modal-body" id="demo-science"></div>
        </div>
      </div>
    </div>
@@ -90,13 +75,6 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
           <h4 class="modal-title">Commerce book details</h4>
         </div>
         <div class="modal-body" id="demo-commerce">
-        
-           <%-- <%for(int i=0;i<alBookDetails.size();i++){
-        	  if(alBookDetails.get(i).getBookCatagory().equals("commerce")){
-        		alBookDetails.get(i).getBookTitle();  
-        	  }
-        	  }
-        %> --%>
         </div>
        </div>
      </div>
@@ -114,13 +92,6 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
           <h4 class="modal-title">Arts book details</h4>
         </div>
         <div class="modal-body" id="demo-arts">
-        
-        <%--    <%for(int i=0;i<alBookDetails.size();i++){
-        	  if(alBookDetails.get(i).getBookCatagory().equals("arts")){
-        		alBookDetails.get(i).getBookTitle();  
-        	  }
-        	  }
-        %> --%>
         </div>
        </div>
      </div>
@@ -136,12 +107,9 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
           <h4 class="modal-title">Form for book_library</h4>
         </div>
         <div class="modal-body">
-           <form class="form" name="book_library" method="get" action="onsubmit">
+           <form class="form" name="book_library" method="post" action="onsubmit" onsubmit="return validateBook()">
            <input type="hidden" value="SAVE_BOOK" name="ACTION_MODE">
-              <div class="form-group">
-                <label for="email">Enter BookId:</label>
-                <input type="text" class="form-control" id="bookId" name="bookId" placeholder="bookId">
-              </div>
+              
               <div class="form-group">
                 <label for="bookTitle">Enter BookTitle:</label>
                 <input type="text" class="form-control" id="bookTitle" name="bookTitle" placeholder="bookTitle">
@@ -149,18 +117,20 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
               <div class="form-group">
                 <label for="bookAuthor">Enter BookAuthor:</label>
                 <input type="text" class="form-control" id="bookAuthor" name="bookAuthor" placeholder="bookAuthor">
-              <br><select name="bookCatagory">
+              <br><select name="bookCatagory" id="bookCatagory">
 				  <option value="commerce">commerce</option>
 				  <option value="science">science</option>
 				  <option value="arts">arts</option>
 				</select>
-
+			</div>
 
             <div class="form-group">
-              <label for="bookPrice">Enter BookPrice:</label>
-              <input type="text" class="form-control" id="bookPrice" name="bookPrice" placeholder="bookPrice">
-            </div></div>
-  			<button type="submit" class="btn btn-default">Submit</button>
+	              <label for="bookPrice">Enter BookPrice:</label>
+	              <input type="text" class="form-control" id="bookPrice" name="bookPrice" placeholder="bookPrice">
+              </div>
+              <div class="form-group">
+  			 	<input type="submit" value="save">
+  			 </div>
 			</form> 
         </div>
        </div>
@@ -173,7 +143,7 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
 	function loadDoc(catagory) {
 		currentcatagory=catagory;
 	  var xhttp = new XMLHttpRequest();
-	  xhttp.open("GET", "fetchData?ACTION_MODE=FETCH_DATA&catagory="+catagory, true);
+	  xhttp.open("POST", "fetchBookTitle?ACTION_MODE=FETCH_BOOK_TITLE&catagory="+catagory, true);
 	  xhttp.send();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
@@ -183,7 +153,7 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
 	}
 	function fetchDetails(bookId,isEditFlow){
 		var xhttp = new XMLHttpRequest();
-		  xhttp.open("GET", "fetchData?ACTION_MODE=FETCH_BOOK_DETAILS&bookId="+bookId+"&isEditFlow="+isEditFlow, true);
+		  xhttp.open("POST", "fetchData?ACTION_MODE=FETCH_BOOK_DETAILS&bookId="+bookId+"&isEditFlow="+isEditFlow, true);
 		  xhttp.send();
 		  xhttp.onreadystatechange = function() {
 		    if (this.readyState == 4 && this.status == 200) {
@@ -193,7 +163,7 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
 	}
 	function deleteBook(bookId,catagory){
 		var xhttp = new XMLHttpRequest();
-		  xhttp.open("GET", "deleteData?ACTION_MODE=DELETE_BOOK&bookId="+bookId, true);
+		  xhttp.open("POST", "deleteData?ACTION_MODE=DELETE_BOOK&bookId="+bookId, true);
 		  xhttp.send();
 		  xhttp.onreadystatechange = function() {
 		    if (this.readyState == 4 && this.status == 200) {
@@ -204,6 +174,25 @@ List<BookDetails> alBookDetails=(List<BookDetails>)request.getAttribute("BookDet
 		  };
 		
 	}
+	function validateBook(){
+		var bookTitle =document.getElementById("bookTitle").value;
+		var bookAuthor = document.getElementById("bookAuthor").value;
+		var bookPrice = document.getElementById("bookPrice").value;
+		 
+		if(bookTitle==""||bookTitle==null){
+			alert("bookTitle can't be null");
+			return false;
+		} else if(bookAuthor==""||bookAuthor==null){
+				alert("bookAuthor can't be null");
+			    return false;
+		}
+		 else if(bookPrice==""||bookPrice==null){
+			alert("bookAuthor can't be null");
+			return false;
+		}
+		return true;
+	}
+	
 
 
 </script> 

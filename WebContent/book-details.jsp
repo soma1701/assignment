@@ -33,7 +33,7 @@
 		<%
 			if (isEditFlow) {
 		%>
-		<form class="form" action="editBook">
+		<form class="form" action="editBook" method="post">
 			<div class="form-group">
 
 				<div class="row">
@@ -62,7 +62,7 @@
 	<%
 		} else {
 	%>
-	<form class="form"  action="editBook">
+	<form class="form"  action="editBook" method="post">
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-4">Author-Name:</div>
@@ -88,16 +88,5 @@
 	<%
 		}
 	%>
-	<%-- <div class="row">
-
-<div class="col-md-4">Author-Name:</div><div class="col-md-8 text"><%=objBookDetails.getBookAuthor() %></div></div><br>
-<div class="row">
-<div class=" col-md-4">Book-Title:</div><div class="col-md-8"><%=objBookDetails.getBookTitle() %></div></div><br>
-<div class="row"></div>
-<div class="col-md-4">Book-Price:</div><div class="col-md-8"><%=objBookDetails.getBookPrice() %></div></div><br>
-<input type="text" value="testing" readonly> --%>
-
-
-
 </body>
 </html>

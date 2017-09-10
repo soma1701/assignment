@@ -7,6 +7,7 @@ public class Userdetails {
 	private String confirmPassword;
 	private String gender;
 	private long mobNo;
+	private int userId;
 	
 	public String getEmail() {
 		return email;
@@ -41,8 +42,14 @@ public class Userdetails {
 	public long getMobNo() {
 		return mobNo;
 	}
-	public void setMobNo(long mobNno) {
+	public void setMobNo(long mobNo) {
 		this.mobNo = mobNo;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	
 	

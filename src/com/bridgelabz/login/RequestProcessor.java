@@ -27,7 +27,8 @@ public class RequestProcessor {
 		}
 		if(objUserDetails.getUserName()==null){
 			try {
-				resp.sendRedirect("Registration.jsp");
+				
+				resp.sendRedirect("signin.jsp");
 				
 				
 			} catch (IOException e) {
@@ -35,18 +36,11 @@ public class RequestProcessor {
 			}
 		}else{
 				try {
-					BookDetailsDAO objBookDetailsDAO=new BookDetailsDAO();
-					List<BookDetails> objal  =objBookDetailsDAO.fetchBookDetails(objBookDetailsDAO);
 					HttpSession session=req.getSession();
-					req.setAttribute("BookDetails", objal);
 					session.setAttribute("userName",objUserDetails.getUserName());
-					resp.sendRedirect("Welcomefile.jsp");
-//					RequestDispatcher dispatcher = req.getRequestDispatcher("Welcomefile.jsp");
-//					dispatcher.include(req, resp);
+					session.setAttribute("userId",objUserDetails.getUserId());
+					resp.sendRedirect("HomePage.jsp");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -74,24 +68,26 @@ public class RequestProcessor {
 	public void doSaveData(HttpServletRequest req, HttpServletResponse resp) {
 		BookDetails objBookDetails=new BookDetails();
 		objBookDetails.setBookAuthor(req.getParameter("bookAuthor"));
-		objBookDetails.setBookId(Integer.parseInt(req.getParameter("bookId")));
 		objBookDetails.setBookCatagory(req.getParameter("bookCatagory"));
 		objBookDetails.setBookTitle(req.getParameter("bookTitle"));
 		objBookDetails.setBookPrice(Double.parseDouble(req.getParameter("bookPrice")));
 		BookDetailsDAO objBookDetailsDAO=new BookDetailsDAO();
-		objBookDetailsDAO.saveBookDetails(objBookDetails);
+		HttpSession session = req.getSession();
+		int userId = (int) session.getAttribute("userId");
+		objBookDetailsDAO.saveBookDetails(objBookDetails,userId);
 		try {
-			resp.sendRedirect("Welcomefile.jsp");
+			resp.sendRedirect("HomePage.jsp");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void doFetchData(HttpServletRequest req, HttpServletResponse resp) {
+	public void fetchBookTitle(HttpServletRequest req, HttpServletResponse resp) {
 		String bookCatagory=req.getParameter("catagory");
+		int userId = Integer.parseInt(req.getSession().getAttribute("userId").toString());
 		BookDetailsDAO objBookDetailsDAO=new BookDetailsDAO();
-		List<BookDetails> alBookDetails=objBookDetailsDAO.fetchBookTitle(bookCatagory);
+		List<BookDetails> alBookDetails=objBookDetailsDAO.fetchBookTitle(bookCatagory,userId);
 		req.setAttribute("BookDetails", alBookDetails);
 		RequestDispatcher dispatcher=req.getRequestDispatcher("book_title.jsp");
 		try {
@@ -144,7 +140,7 @@ public class RequestProcessor {
 		BookDetailsDAO objBookDetailsDAO = new BookDetailsDAO();
 		objBookDetailsDAO.updateBookDetails(objBookDetails);
 		try {
-			resp.sendRedirect("Welcomefile.jsp");
+			resp.sendRedirect("HomePage.jsp");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -162,9 +158,12 @@ public class RequestProcessor {
 		objUserdetails.setGender(req.getParameter("gender"));
 		objUserdetails.setMobNo(Long.parseLong(req.getParameter("mobileNumber")));
 		UserDetailsDAO objUserDetailsDAO = new UserDetailsDAO();
+//		objUserDetailsDAO.doValidate(objUserdetails);
 		objUserDetailsDAO.getRegister(objUserdetails);
+		
 		try {
-			resp.sendRedirect("Registration.jsp");
+			
+			resp.sendRedirect("signin.jsp");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

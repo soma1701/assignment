@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.bridgelabz.login.AuthQueryUtil;
 import com.bridgelabz.modal.BookDetails;
 
@@ -16,7 +18,7 @@ public class BookDetailsDAO {
         Connection con=null;  
         try{  
             Class.forName("com.mysql.jdbc.Driver");  
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/soma","root","root");  
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/soma","root","giftalife");  
         }catch(Exception e){System.out.println(e);}  
         return con;  
     }  
@@ -52,27 +54,39 @@ public class BookDetailsDAO {
 	
 		return alBookDetails;
 	} 
-	public int saveBookDetails(BookDetails objBookDetails) {
-		/*ArrayList<BookDetails> alBookDetails=new ArrayList<BookDetails>();*/
+	public int saveBookDetails(BookDetails objBookDetails,int userId){
 		int status=0;
 		PreparedStatement ps = null;
 		Connection conn = null;
+		ResultSet resultSet=null;
 		try {
 			
 			conn = BookDetailsDAO.getConnection();
+			
 			ps = conn.prepareStatement(AuthQueryUtil.SET_BOOK_DETAILS);
-			ps.setInt(1,objBookDetails.getBookId());
-			ps.setString(2, objBookDetails.getBookTitle());
-			ps.setString(3, objBookDetails.getBookAuthor());
-			ps.setString(4, objBookDetails.getBookCatagory());
-			ps.setDouble(5, objBookDetails.getBookPrice());
+			ps.setString(1, objBookDetails.getBookTitle());
+			ps.setString(2, objBookDetails.getBookAuthor());
+			ps.setString(3, objBookDetails.getBookCatagory());
+			ps.setDouble(4, objBookDetails.getBookPrice());
 		    status=ps.executeUpdate();
+		    ps = conn.prepareStatement(AuthQueryUtil.MAX_COUNT_BOOKID);
+		    resultSet =  ps.executeQuery();
+		    int maxCount=0;
+		    while(resultSet.next())
+		    {
+		    	 maxCount = resultSet.getInt("max_book_id");
+		    }
+		    ps = conn.prepareStatement(AuthQueryUtil.INSERT_USER_ID);
+			ps.setInt(1 ,maxCount);
+			ps.setInt(2,userId);
+			status= ps.executeUpdate();
 			} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally{
 			try {
+				resultSet.close();
 				conn.close();
 				ps.close();
 			} catch (SQLException e) {
@@ -118,7 +132,7 @@ public class BookDetailsDAO {
 	 
 
 		
-	public List<BookDetails> fetchBookTitle(String bookCatagory) {
+	public List<BookDetails> fetchBookTitle(String bookCatagory, int userId) {
 		PreparedStatement ps=null;
 		Connection con=null;
 		ResultSet rs=null;
@@ -127,12 +141,14 @@ public class BookDetailsDAO {
 			 con=BookDetailsDAO.getConnection();
 			 ps=con.prepareStatement(AuthQueryUtil.GET_BOOK_TITLE);
 			 ps.setString(1,bookCatagory);
+			 ps.setInt(2, userId);
 			 rs=ps.executeQuery();
 			 
 			 while(rs.next()){
 				 BookDetails objBookdetails=new BookDetails();
-				 objBookdetails.setBookId(rs.getInt("book_id"));
+				
 				 objBookdetails.setBookTitle(rs.getString("book_title"));
+				 objBookdetails.setBookId(rs.getInt("book_id"));
 				 alBookDetails.add(objBookdetails);
 			 }
 		} catch (SQLException e) {

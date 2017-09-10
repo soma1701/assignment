@@ -10,11 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bridgelabz.login.RequestProcessor;
 
-
 public class RequestController extends HttpServlet{
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String actionMode = req.getParameter("ACTION_MODE");
 		RequestProcessor objRequestProcessor = new RequestProcessor(); 
@@ -23,18 +22,16 @@ public class RequestController extends HttpServlet{
 			objRequestProcessor.doRegister(req,resp);
 			break;
 		case "LOGIN":
-//			com.bridgelabz.login.Authentication objLogin = new com.bridgelabz.login.Authentication();
 			objRequestProcessor.doLogin(req,resp);
 			break;
 		case "LOGOUT":
-//			Authentication objLogout = new Authentication();
 			objRequestProcessor.doLogout(req,resp);
 			break;
 		case "SAVE_BOOK":
 			objRequestProcessor.doSaveData(req,resp);
 			break;
-		case "FETCH_DATA":
-			objRequestProcessor.doFetchData(req,resp);
+		case "FETCH_BOOK_TITLE":
+			objRequestProcessor.fetchBookTitle(req,resp);
 			break;
 		case "FETCH_BOOK_DETAILS":
 			objRequestProcessor.fetchBookDetails(req,resp);
@@ -50,10 +47,5 @@ public class RequestController extends HttpServlet{
 				
 		}
 	}
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
-		
-	}
+	
 }

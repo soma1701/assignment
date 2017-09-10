@@ -62,7 +62,7 @@
 	<div class="container">
 		<h2>sign in</h2>
 		<hr>
-		<form action="signin" name="signin" method="get" onsubmit="return validateEmail()">
+		<form action="signin" name="signin" method="post" onsubmit="return validateEmail()">
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">

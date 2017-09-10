@@ -17,15 +17,17 @@ public class AuthDao {
 		int counter = 1;
 		try{
 			Class.forName("com.mysql.jdbc.Driver"); 
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/soma","root","root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/soma","root","giftalife");
 			ps = conn.prepareStatement(AuthQueryUtil.GET_LOGIN_AUTHENTICATION);
 			ps.setString(counter++, objUserDetails.getEmail());
 			ps.setString(counter++, objUserDetails.getPassword());
 			rs = ps.executeQuery();
 			while(rs.next()){
+				objUserDetails.setUserId(rs.getInt("user_id"));
 				objUserDetails.setUserName(rs.getString("user_name"));
 			}
 		}catch(Exception sqlExp){
+			
 			sqlExp.printStackTrace();
 		}finally{
 			conn.close();
